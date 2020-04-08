@@ -1,37 +1,45 @@
-# 🥳 PLACEHOLDER
+# Title me
 
-DESCRIPTION OF THE LAMBDA
+Describe me
 
-# .Env
+# Environment variables
+
+Copy&Paste the following command to create the `.env` file with all the environment variables needed for the project.
 
 ```
-DB_URI=
+printf "%s\n" \
+AWS_ACCESS_KEY_ID=DATA \
+AWS_SECRET_ACCESS_KEY=DATA \
+>> .env
 ```
 
-# How to run locally
+# How to run Lambda Locally
 
-First install all the modules
 ```
-npm run install
+npm install
 ```
 
-then run the code
+And once you have all the modules installed you can run:
 
 ```
 npm run locally
 ```
 
-# How to fake a request
+# Documentation and Knoledge Base
 
-To run the Lambda locally you can fake a a request by using two files:
+If you'd like to ask questions, or search our knoledge base, please visit our priviate [stackoverflow](http://stackoverflow.com/c/incomyz) account.
 
-- lambda-payloads.json
-- lambda-context.json
+# Understendig Our Files
 
-### lambda-payloads.json
+This list explains in details what each file in the project is for, this way you don't have to guess, you can just read the facts.
 
-This file is the fake payload that will be under the `event` variable name. Here you can put anything, from fake AWS resources messages to your own custom messages.
-
-### lambda-context.json
-
-This file normally is not necessary but since we are connecting to a regular SQL DB, we need to fake the `context` variable to mimic the environment in AWS.
+- `.github`: this foler contains all the files for GitHub to be using to make the page work how we sy it should.
+- `.payloads`: this fodler contains files that mimick the payloads comming to a Lambda, use it to test your code.
+- `.editorconfig`: this file tels your editor how it should work with this repo.
+- `.env`: this is where all the environment variables go, and are loaded at startup time.
+- `.gitignore`: is a list of files nad folder to ignore by git.
+- `.loader`: is the file used by the `npm run build` to execute the code as if it was beeing executed within AWS Lambda. It mimiks the environemnt 1:1.
+- `buildspec.yml`: this file contains all the instructions for AWS CodeBuild.
+- `index.js`: the initial file that is executed by NodeJS
+- `package.json`: this file is used by NPM to know how to behave and what to install.
+- `README.md`: you are reding it.

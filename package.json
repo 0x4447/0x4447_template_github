@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "locally": "env $(cat .env) node -e 'require(\"./index\").handler(require(\"./lambda-payloads.json\"), require(\"./lambda-context.json\")).then(function(response){ console.info(response) }).catch(function(error){ console.error(error) })'"
+    "locally": "env $(cat .env) node -e \"require('./.loader.js')\""
   },
-  "dependencies": {}
+  "dependencies": {
+    "aws-sdk": "^2.601.0"
+  }
 }

@@ -7,4 +7,4 @@ phases:
       - zip -r code.zip .
   post_build:
     finally:
-      - aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file fileb://./code.zip
+      - aws lambda update-function-code --function-name FUNCTION_NAME --zip-file fileb://./code.zip

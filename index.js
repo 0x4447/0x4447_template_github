@@ -1,105 +1,89 @@
-//
-//
-//
-exports.handler = (event, context) => {
+let AWS = require("aws-sdk");
 
-    return new Promise(function(resolve, reject) {
+//
+//	LAMBDA_DESCRIPTION
+//
+exports.handler = (event) => {
 
-        //
-        //  1.  Create a container to pass around the promises.
-        //
-        let container = {
-            //
-            //  Split the incoming data to show what we are working with.
-            //
-            req: {},
-            //
-            //  The redirect response for API Gateway.
-            //
-            res: {
-                statusCode: 200,
-                body: {}
+	return new Promise(function(resolve, reject) {
+
+		//
+		//	1. This container holds all the data to be passed around the chain.
+		//
+		let container = {
+			req: {},
+			//
+			//	The default response for Lambda.
+			//
+			res: {
+                message: "OK"
             }
-        };
+		}
 
-        //
-        //  ->  Start the chain.
-        //
-        one(container)
-            .then(function(container) {
+		//
+		//	->	Start the chain.
+		//
+		step_one(container)
+			.then(function(container) {
 
-                return two(container);
+				return step_two(container);
 
-            }).then(function(container) {
+			}).then(function(container) {
 
-                //
-                //  ->  Send back the good news.
-                //
-                return resolve(container.res);
+				//
+				//  ->  Send back the good news.
+				//
+				return resolve(container.res);
 
-            }).catch(function(error) {
+			}).catch(function(error) {
 
-                //
-                //    1.    Set the internal server error status.
-                //
-                container.res.statusCode = 500;
+				//
+				//	->	Stop and surface the error.
+				//
+				return reject(error);
 
-                //
-                //    2.    Surface the error message.
-                //
-                container.res.body = JSON.stringify({
-                    message: error.message
-                });
-
-                //
-                //  ->  Stop and surface the error.
-                //
-                return resolve(container.res);
-
-            });
-
-    });
-
+			});
+	});
 };
 
-//   _____    _____     ____    __  __   _____    _____   ______    _____
-//  |  __ \  |  __ \   / __ \  |  \/  | |_   _|  / ____| |  ____|  / ____|
-//  | |__) | | |__) | | |  | | | \  / |   | |   | (___   | |__    | (___
-//  |  ___/  |  _  /  | |  | | | |\/| |   | |    \___ \  |  __|    \___ \
-//  | |      | | \ \  | |__| | | |  | |  _| |_   ____) | | |____   ____) |
-//  |_|      |_|  \_\  \____/  |_|  |_| |_____| |_____/  |______| |_____/
+//	 _____    _____     ____    __  __   _____    _____   ______    _____
+//	|  __ \  |  __ \   / __ \  |  \/  | |_   _|  / ____| |  ____|  / ____|
+//	| |__) | | |__) | | |  | | | \  / |   | |   | (___   | |__    | (___
+//	|  ___/  |  _  /  | |  | | | |\/| |   | |    \___ \  |  __|    \___ \
+//	| |      | | \ \  | |__| | | |  | |  _| |_   ____) | | |____   ____) |
+//	|_|      |_|  \_\  \____/  |_|  |_| |_____| |_____/  |______| |_____/
 //
 
 //
 //
 //
-function one(container)
+function step_one(container)
 {
-    return new Promise(function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 
-        console.info("one");
+        console.info("step_one");
 
         //
-        //    ->  Move to the next chain.
+        //	->	Move to the next promise.
         //
         return resolve(container);
 
-    });
+	});
 }
 
 //
-//    Do something fun.
 //
-function two(container)
+//
+function step_two(container)
 {
-    return new Promise(function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 
-        console.info("two");
+		console.info("step_two");
 
-        //
-        //    ->  Move to the next chain.
+		//
+        //	->	Move to the next promise.
         //
         return resolve(container);
 
-    });
+	});
 }

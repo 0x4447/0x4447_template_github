@@ -1,10 +1,9 @@
 ---
 name: 🎁 Feature request
 about: Suggest an idea for this project
-title: 'New feature: SHORT_DESCRIPTION'
+title: "🎁 New feature: SHORT_DESCRIPTION"
 labels: enhancement
 assignees: davidgatti
-
 ---
 
 # My Problem
